@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">MYK MOVIE WORLD</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="most_popular_movies">Most Popular Movies</string>
+    <string name="most_rated_movies">Most Rated Movies</string>
+    <string name="highest_rated_movies">Highest Rated Movies</string>
+</resources>
