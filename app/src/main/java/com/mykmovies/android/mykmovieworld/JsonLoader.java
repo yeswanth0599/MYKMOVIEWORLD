@@ -24,13 +24,11 @@ public class JsonLoader extends AsyncTaskLoader<String> {
 
     public JsonLoader(Context context, String urlText) {
         super(context);
-        // TODO 自動生成されたコンストラクター・スタブ
         this.urlText = urlText;
     }
 
     @Override
     public String loadInBackground() {
-        // TODO 自動生成されたメソッド・スタブ
 
         try {
             URL url=new URL(urlText);
@@ -64,7 +62,6 @@ public class JsonLoader extends AsyncTaskLoader<String> {
 
     @Override
     protected void onStartLoading() {
-        // TODO 自動生成されたメソッド・スタブ
         forceLoad();
     }
 

@@ -87,7 +87,7 @@ public class TopRated extends Fragment implements LoaderManager.LoaderCallbacks<
 
                     JSONObject innerJsonObject=jsonArray.getJSONObject(i);
                     String moviePosterURL=MovieContract.MovieEntryInfo.MOVIE_POSTER_PATH.concat(innerJsonObject.getString("poster_path"));
-                    String movieTrailer=MovieContract.MOVIE_BASE_URL.concat(innerJsonObject.getString("id")+"/videos");
+                    String movieTrailer=MovieContract.MOVIE_BASE_URL.concat(innerJsonObject.getString("id")+"?api_key="+MovieContract.MovieEntryInfo.MOVIE_DB_KEY+"&append_to_response=videos");
                     String movieTitle=innerJsonObject.getString("title");
                     String movieOriginalTitle=innerJsonObject.getString("original_title");
                     String movieSynopsis=innerJsonObject.getString("overview");
@@ -101,7 +101,7 @@ public class TopRated extends Fragment implements LoaderManager.LoaderCallbacks<
                 }
 
             } catch (JSONException e) {
-                Log.d("onLoadFinished","JSONのパースに失敗しました。 JSONException=" + e);
+                Log.d("onLoadFinished","JSON Parse Failed。 JSONException=" + e);
             }
 
 

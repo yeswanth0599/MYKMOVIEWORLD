@@ -27,7 +27,7 @@ public class TrailerAdapter extends ArrayAdapter<TrailerList>{
     public View getView(int position, View convertView, ViewGroup parent) {
         View listItemView = convertView;
         if (listItemView == null) {
-            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.activity_movie_details_display,parent,false);
+            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.trailer_list_display,parent,false);
         }
         TrailerList trailerList = getItem(position);
         TextView textViewTrailer=(TextView)listItemView.findViewById(R.id.movie_trailer);

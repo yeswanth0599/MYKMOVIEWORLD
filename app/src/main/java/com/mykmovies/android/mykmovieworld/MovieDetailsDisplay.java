@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.mykmovies.android.mykmovieworld.data.TrailerAdapter;
@@ -31,8 +32,6 @@ public class MovieDetailsDisplay extends AppCompatActivity implements LoaderMana
     private TextView movieRatingDisplay;
     private TextView movieReleaseDateDisplay;
     private String   moviePosterSrc;
-    private TextView movieTrailerSrc;
-    private TextView movieTrailerLable;
     Context context;
     private ArrayList<TrailerList> trailerListMain;
     private TrailerAdapter trailerAdapter;
@@ -57,10 +56,7 @@ public class MovieDetailsDisplay extends AppCompatActivity implements LoaderMana
         movieOverViewDisplay=(TextView)findViewById(R.id.movieOverviewDisplay);
         movieRatingDisplay=(TextView)findViewById(R.id.movieRatingDisplay);
         movieReleaseDateDisplay=(TextView)findViewById(R.id.movieRleaseDateDisplay);
-        movieTrailerLable=(TextView)findViewById(R.id.movie_trailer_lable);
-        movieTrailerSrc=(TextView)findViewById(R.id.movie_trailer);
         moviePosterSrc=getIntent().getStringExtra("movie_Poster_ID");
-        String movieTrailerUrl=getIntent().getStringExtra("movie_Trailer");
         /**
          * Get details from the MovieAdapter class and Displaying Movie Details
          *  1. Movie Poster
@@ -69,8 +65,8 @@ public class MovieDetailsDisplay extends AppCompatActivity implements LoaderMana
          *  4. Movie Rating
          *  5. Movie Release Date
          */
-        Bundle bundle = new Bundle();
-        bundle.putString("url",movieTrailerUrl);
+        Bundle bundle= new Bundle();
+        bundle.putString("url",getIntent().getStringExtra("movie_Trailer"));
         getSupportLoaderManager().initLoader(ADDRESSLOADER_ID, bundle,this);
         Picasso.with(this)
                 .load(moviePosterSrc)
@@ -111,13 +107,19 @@ public class MovieDetailsDisplay extends AppCompatActivity implements LoaderMana
             try {
 
                 JSONObject jsonObject=new JSONObject(data);
-                JSONArray jsonArray = jsonObject.getJSONArray("results");
-                for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject subJsonObject=jsonObject.getJSONObject("videos");
+                JSONArray jsonArray = subJsonObject.getJSONArray("results");
 
-                    JSONObject innerJsonObject = jsonArray.getJSONObject(i);
-                    trailerListMain.add(new TrailerList(innerJsonObject.getString("key")));
-                    trailerAdapter=new TrailerAdapter(this,trailerListMain);
-                }
+                    for (int i = 0; i < jsonArray.length(); i++) {
+
+                        JSONObject innerJsonObject = jsonArray.getJSONObject(i);
+                        trailerListMain.add(new TrailerList(innerJsonObject.getString("name")));
+
+                    }
+                    trailerAdapter = new TrailerAdapter(this, trailerListMain);
+                    ListView listView = (ListView) findViewById(R.id.trailer_list_display);
+                    listView.setAdapter(trailerAdapter);
+
             } catch (JSONException e) {
                 Log.d("onLoadFinished","JSONのパースに失敗しました。 JSONException=" + e);
             }
@@ -126,10 +128,14 @@ public class MovieDetailsDisplay extends AppCompatActivity implements LoaderMana
         } else{
             Log.d("onLoadFinished", "onLoadFinished error!");
         }
+
             }
 
     @Override
     public void onLoaderReset(Loader<String> loader) {
+        Bundle bundle= new Bundle();
+        bundle.putString("url",getIntent().getStringExtra("movie_Trailer"));
+        getSupportLoaderManager().initLoader(ADDRESSLOADER_ID, bundle,this);
     }
 
 }
