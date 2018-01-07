@@ -8,11 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -83,6 +81,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             intent.putExtra("movie_Synopsis",movieList.getPlotSynopsis());
             intent.putExtra("movie_User_Rating",movieList.getUserRating());
             intent.putExtra("movie_Release_Date",movieList.getRelease_Date());
+            intent.putExtra("movie_Trailer",movieList.getMovieTrailer());
             context.startActivity(intent);
         }
     }

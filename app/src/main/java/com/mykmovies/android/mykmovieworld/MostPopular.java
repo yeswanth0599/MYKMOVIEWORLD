@@ -13,14 +13,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mykmovies.android.mykmovieworld.data.MovieContract;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-
 
 /**
  * Most Popular movies Fragment will display Most popular movies from TMDB
@@ -34,15 +34,11 @@ public class MostPopular extends Fragment implements LoaderManager.LoaderCallbac
     private RecyclerView.Adapter movieAdapterMain;
     private List<MovieList> movieListsMain;
     private ProgressDialog progressDialog;
-    private String MOVIEDB_URL;
-    private String movieDBKey;
     String urlResult;
     private static int ADDRESSLOADER_ID=99;
     /**
      * Using baseURL fetch the popular movies from the TMDB
      */
-    private String baseURL="https://api.themoviedb.org/3/movie/popular?api_key=";
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -55,8 +51,6 @@ public class MostPopular extends Fragment implements LoaderManager.LoaderCallbac
          * Accessing Movie DB Key from the Gradle File
          * combined MoviedDBKey with base url will get popular movie information
          */
-        movieDBKey= BuildConfig.MovieDBApiKeyInfo;
-        MOVIEDB_URL=baseURL+movieDBKey;
         movieRecycleViewMain=(RecyclerView)getActivity().findViewById(R.id.movie_recyclerview);
         movieRecycleViewMain.setHasFixedSize(true);
         movieRecycleViewMain.setLayoutManager(new GridLayoutManager(getContext(),2));
@@ -69,7 +63,7 @@ public class MostPopular extends Fragment implements LoaderManager.LoaderCallbac
         progressDialog.setMessage("Loading Data...");
         progressDialog.show();
         Bundle bundle = new Bundle();
-        bundle.putString("url", MOVIEDB_URL);
+        bundle.putString("url", MovieContract.MovieEntryInfo.POPULAR_MOVIE_URL);
         getLoaderManager().initLoader(ADDRESSLOADER_ID, bundle, this);
 }
 
@@ -95,14 +89,14 @@ public class MostPopular extends Fragment implements LoaderManager.LoaderCallbac
                 for (int i = 0; i < jsonArray.length(); i++) {
 
                     JSONObject innerJsonObject=jsonArray.getJSONObject(i);
-                    String moviePoster=innerJsonObject.getString("poster_path");
-                    String moviePosterURL="http://image.tmdb.org/t/p/w342/"+moviePoster;
+                    String moviePosterURL= MovieContract.MovieEntryInfo.MOVIE_POSTER_PATH.concat(innerJsonObject.getString("poster_path"));
+                    String movieTrailer=MovieContract.MOVIE_BASE_URL.concat(innerJsonObject.getString("id")+"/videos?api_key="+MovieContract.MovieEntryInfo.MOVIE_DB_KEY);
                     String movieTitle=innerJsonObject.getString("title");
                     String movieOriginalTitle=innerJsonObject.getString("original_title");
                     String movieSynopsis=innerJsonObject.getString("overview");
                     String movieRating=innerJsonObject.getString("vote_average");
                     String movieReleaseDate=innerJsonObject.getString("release_date");
-                    MovieList movieList=new MovieList(movieTitle,moviePosterURL,movieSynopsis,movieRating,movieReleaseDate,movieOriginalTitle);
+                    MovieList movieList=new MovieList(movieTitle,moviePosterURL,movieSynopsis,movieRating,movieReleaseDate,movieOriginalTitle,movieTrailer);
                     movieListsMain.add(movieList);
                     movieAdapterMain=new MovieAdapter(movieListsMain,getContext());
                     movieRecycleViewMain.setAdapter(movieAdapterMain);
@@ -122,52 +116,7 @@ public class MostPopular extends Fragment implements LoaderManager.LoaderCallbac
 
     @Override
     public void onLoaderReset(Loader<String> loader) {
-
+        getLoaderManager().initLoader(ADDRESSLOADER_ID, null, this);
     }
 
-
-
-
-/*
-    @Override
-    public void onLoadFinished(Loader<JSONObject> loader, JSONObject data) {
-        progressDialog.dismiss();
-        if (data != null) {
-
-            try {
-
-                JSONObject jsonObject=new JSONObject(data.toString());
-                JSONArray jsonArray = jsonObject.getJSONArray("results");
-
-                for (int i = 0; i < jsonArray.length(); i++) {
-
-                    JSONObject innerJsonObject=jsonArray.getJSONObject(i);
-                    String moviePoster=innerJsonObject.getString("poster_path");
-                    String moviePosterURL="http://image.tmdb.org/t/p/w342/"+moviePoster;
-                    String movieTitle=innerJsonObject.getString("title");
-                    String movieOriginalTitle=innerJsonObject.getString("original_title");
-                    String movieSynopsis=innerJsonObject.getString("overview");
-                    String movieRating=innerJsonObject.getString("vote_average");
-                    String movieReleaseDate=innerJsonObject.getString("release_date");
-                    MovieList movieList=new MovieList(movieTitle,moviePosterURL,movieSynopsis,movieRating,movieReleaseDate,movieOriginalTitle);
-                    movieListsMain.add(movieList);
-                    movieAdapterMain=new MovieAdapter(movieListsMain,getContext());
-                    movieRecycleViewMain.setAdapter(movieAdapterMain);
-
-                }
-
-            } catch (JSONException e) {
-                Log.d("onLoadFinished","JSONのパースに失敗しました。 JSONException=" + e);
-            }
-
-
-        }else{
-            Log.d("onLoadFinished", "onLoadFinished error!");
-        }
-    }
-
-    public void onLoaderReset(Loader<JSONObject> loader) {
-        // TODO 自動生成されたメソッド・スタブ
-
-    }*/
 }

@@ -11,7 +11,8 @@ public class MovieList {
     private String plotSynopsis;
     private String userRating;
     private String release_Date;
-    public MovieList(String movieName, String moviePoster,String plotSynopsis,String userRating,String release_Date,String movieOriginalTitle)
+    private String movieTrailer;
+    public MovieList(String movieName, String moviePoster,String plotSynopsis,String userRating,String release_Date,String movieOriginalTitle, String movieTrailer)
     {
         this.movieName=movieName;
         this.movieOriginalTitle=movieOriginalTitle;
@@ -19,6 +20,7 @@ public class MovieList {
         this.plotSynopsis=plotSynopsis;
         this.userRating=userRating;
         this.release_Date=release_Date;
+        this.movieTrailer=movieTrailer;
     }
 
     public String getMovieName() {
@@ -44,4 +46,6 @@ public class MovieList {
     public String getRelease_Date() {
         return release_Date;
     }
+
+    public String getMovieTrailer(){ return movieTrailer; }
 }

@@ -12,32 +12,64 @@
     tools:context="com.mykmovies.android.mykmovieworld.MovieDetailsDisplay">
     <LinearLayout
         android:orientation="vertical"
+        android:id="@+id/parentLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <ImageView
-        android:id="@+id/moviePosterDisplay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp">
-    <TextView
-        android:id="@+id/movie_Name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Movie Original Title:"
-        android:textSize="20sp"
-        android:textColor="@color/colorPrimary"
-        android:textStyle="bold"/>
-    <TextView
-        android:id="@+id/movieNameDisplay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:textStyle="bold"/>
-    </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            >
+
+            <ImageView
+                android:id="@+id/moviePosterDisplay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                />
+            <TextView
+                android:id="@+id/movie_Name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Movie Title:"
+                android:textSize="20sp"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"/>
+
+            <TextView
+                android:id="@+id/movieNameDisplay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_alignBottom="@+id/movie_Name"
+                android:layout_alignParentRight="true"
+                />
+            <TextView
+                android:id="@+id/movie_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="User Rating:"
+                android:textSize="20sp"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:layout_alignRight="@+id/moviePosterDisplay"
+                android:layout_alignBottom="@+id/movieNameDisplay"/>
+            <TextView
+                android:id="@+id/movieRatingDisplay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_alignRight="@+id/moviePosterDisplay"
+                android:layout_alignBottom="@+id/movie_rating"
+                />
+        </RelativeLayout>
     <TextView
         android:id="@+id/movie_synopsis_tv"
         android:layout_width="match_parent"
@@ -49,27 +81,9 @@
     <TextView
         android:id="@+id/movieOverviewDisplay"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp">
-        <TextView
-            android:id="@+id/movie_rating"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="User Rating:"
-            android:textSize="20sp"
-            android:textColor="@color/colorPrimary"
-            android:textStyle="bold"/>
-          <TextView
-            android:id="@+id/movieRatingDisplay"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-              android:textSize="20sp"
-              android:textStyle="bold"/>
-    </LinearLayout>
+        android:layout_margin="2dp"/>
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -96,5 +110,24 @@
             android:textSize="20sp"
             android:textStyle="bold"/>
     </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+            <TextView
+                android:id="@+id/movie_trailer_lable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Movie Trailer:"
+                android:textSize="20sp"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/movie_trailer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>
