@@ -5,6 +5,7 @@ package com.mykmovies.android.mykmovieworld;
  */
 
 public class MovieList {
+    private String movieID;
     private String movieName;
     private String movieOriginalTitle;
     private String moviePoster;
@@ -12,8 +13,9 @@ public class MovieList {
     private String userRating;
     private String release_Date;
     private String movieTrailer;
-    public MovieList(String movieName, String moviePoster,String plotSynopsis,String userRating,String release_Date,String movieOriginalTitle, String movieTrailer)
+    public MovieList(String movieID,String movieName, String moviePoster,String plotSynopsis,String userRating,String release_Date,String movieOriginalTitle, String movieTrailer)
     {
+        this.movieID=movieID;
         this.movieName=movieName;
         this.movieOriginalTitle=movieOriginalTitle;
         this.moviePoster=moviePoster;
@@ -21,6 +23,10 @@ public class MovieList {
         this.userRating=userRating;
         this.release_Date=release_Date;
         this.movieTrailer=movieTrailer;
+    }
+
+    public String getMovieID() {
+        return movieID;
     }
 
     public String getMovieName() {

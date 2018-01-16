@@ -6,13 +6,16 @@ package com.mykmovies.android.mykmovieworld.data;
 
 public class TrailerList {
     private String movieTrailer;
-    public TrailerList(String movieTrailer)
+    private String youtubeKey;
+    public TrailerList(String movieTrailer,String youtubeKey)
     {
         this.movieTrailer=movieTrailer;
+        this.youtubeKey=youtubeKey;
 
     }
 
     public String getmMovieTrailer() {
         return movieTrailer;
     }
+    public String getYoutubeKey() { return youtubeKey; }
 }

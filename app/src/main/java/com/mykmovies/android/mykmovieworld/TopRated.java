@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ToggleButton;
 
 import com.mykmovies.android.mykmovieworld.data.MovieContract;
 
@@ -35,6 +36,7 @@ public class TopRated extends Fragment implements LoaderManager.LoaderCallbacks<
     private List<MovieList> movieListsMain;
     private ProgressDialog progressDialog;
     String urlResult;
+    private ToggleButton toggleButton;
     private static int ADDRESSLOADER_ID=99;
     /**
      * Using baseURL fetch the Top Rated movies from the TMDB
@@ -87,13 +89,14 @@ public class TopRated extends Fragment implements LoaderManager.LoaderCallbacks<
 
                     JSONObject innerJsonObject=jsonArray.getJSONObject(i);
                     String moviePosterURL=MovieContract.MovieEntryInfo.MOVIE_POSTER_PATH.concat(innerJsonObject.getString("poster_path"));
-                    String movieTrailer=MovieContract.MOVIE_BASE_URL.concat(innerJsonObject.getString("id")+"?api_key="+MovieContract.MovieEntryInfo.MOVIE_DB_KEY+"&append_to_response=videos");
+                    String movieID=innerJsonObject.getString("id");
+                    String movieTrailer=MovieContract.MOVIE_BASE_URL.concat(movieID);
                     String movieTitle=innerJsonObject.getString("title");
                     String movieOriginalTitle=innerJsonObject.getString("original_title");
                     String movieSynopsis=innerJsonObject.getString("overview");
                     String movieRating=innerJsonObject.getString("vote_average");
                     String movieReleaseDate=innerJsonObject.getString("release_date");
-                    MovieList movieList=new MovieList(movieTitle,moviePosterURL,movieSynopsis,movieRating,movieReleaseDate,movieOriginalTitle,movieTrailer);
+                    MovieList movieList=new MovieList(movieID,movieTitle,moviePosterURL,movieSynopsis,movieRating,movieReleaseDate,movieOriginalTitle,movieTrailer);
                     movieListsMain.add(movieList);
                     movieAdapterMain=new MovieAdapter(movieListsMain,getContext());
                     movieRecycleViewMain.setAdapter(movieAdapterMain);
@@ -116,5 +119,7 @@ public class TopRated extends Fragment implements LoaderManager.LoaderCallbacks<
         getLoaderManager().initLoader(ADDRESSLOADER_ID, null, this);
 
     }
-
+    /**
+     * Favourite button implementation
+     */
 }
