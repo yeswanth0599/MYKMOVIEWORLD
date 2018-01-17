@@ -38,6 +38,7 @@ public class TopRated extends Fragment implements LoaderManager.LoaderCallbacks<
     String urlResult;
     private ToggleButton toggleButton;
     private static int ADDRESSLOADER_ID=99;
+    Bundle bundle;
     /**
      * Using baseURL fetch the Top Rated movies from the TMDB
      */
@@ -60,7 +61,7 @@ public class TopRated extends Fragment implements LoaderManager.LoaderCallbacks<
         progressDialog=new ProgressDialog(getContext());
         progressDialog.setMessage("Loading Data...");
         progressDialog.show();
-        Bundle bundle = new Bundle();
+        bundle = new Bundle();
         bundle.putString("url", MovieContract.MovieEntryInfo.TOP_MOVIE_URL);
         getLoaderManager().initLoader(ADDRESSLOADER_ID, bundle, this);
     }
@@ -116,7 +117,7 @@ public class TopRated extends Fragment implements LoaderManager.LoaderCallbacks<
 
     @Override
     public void onLoaderReset(Loader<String> loader) {
-        getLoaderManager().initLoader(ADDRESSLOADER_ID, null, this);
+        getLoaderManager().initLoader(ADDRESSLOADER_ID, bundle, this);
 
     }
     /**

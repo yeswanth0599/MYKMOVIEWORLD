@@ -36,6 +36,7 @@ public class MostPopular extends Fragment implements LoaderManager.LoaderCallbac
     private List<MovieList> movieListsMain;
     private ProgressDialog progressDialog;
     private static int ADDRESSLOADER_ID=99;
+    Bundle bundle;
     /**
      * Using baseURL fetch the popular movies from the TMDB
      */
@@ -65,7 +66,7 @@ public class MostPopular extends Fragment implements LoaderManager.LoaderCallbac
         progressDialog.setMessage("Loading Data...");
         progressDialog.show();
 
-        Bundle bundle = new Bundle();
+        bundle = new Bundle();
         bundle.putString("url", MovieContract.MovieEntryInfo.POPULAR_MOVIE_URL);
         getLoaderManager().initLoader(ADDRESSLOADER_ID, bundle, this);
         ToggleButton toggle = (ToggleButton) getActivity().findViewById(R.id.movie_toggle);
@@ -122,7 +123,7 @@ public class MostPopular extends Fragment implements LoaderManager.LoaderCallbac
 
     @Override
     public void onLoaderReset(Loader<String> loader) {
-        getLoaderManager().initLoader(ADDRESSLOADER_ID, null, this);
+        getLoaderManager().initLoader(ADDRESSLOADER_ID, bundle, this);
     }
 
     /**

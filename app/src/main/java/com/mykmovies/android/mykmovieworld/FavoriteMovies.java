@@ -51,6 +51,7 @@ public class FavoriteMovies extends Fragment implements LoaderManager.LoaderCall
         progressDialog=new ProgressDialog(getContext());
         progressDialog.setMessage("Loading Data...");
         progressDialog.show();
+        getLoaderManager().initLoader(ADDRESSLOADER_ID, null, this);
     }
     public Loader<Cursor> onCreateLoader(int id, final Bundle loaderArgs) {
 
@@ -70,7 +71,6 @@ public class FavoriteMovies extends Fragment implements LoaderManager.LoaderCall
                     forceLoad();
                 }
             }
-
             // loadInBackground() performs asynchronous loading of data
             @Override
             public Cursor loadInBackground() {
@@ -92,12 +92,11 @@ public class FavoriteMovies extends Fragment implements LoaderManager.LoaderCall
                     return null;
                 }
             }
-
-            // deliverResult sends the result of the load, a Cursor, to the registered listener
+            // onStartLoading() is called when a loader first starts loading data
             public void deliverResult(Cursor data) {
                 mTaskData = data;
                 super.deliverResult(data);
-            }
+            }// deliverResult sends the result of the load, a Cursor, to the registered listener
         };
 
     }
@@ -113,6 +112,7 @@ public class FavoriteMovies extends Fragment implements LoaderManager.LoaderCall
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursorData) {
         // Update the data that the adapter uses to create ViewHolders
         progressDialog.dismiss();
+
         if (cursorData.moveToFirst()){
             while(!cursorData.isAfterLast()){
                 int movieIdIndex =cursorData.getColumnIndex(MovieContract.MovieEntryInfo.COLUMN_MOVIE_ID);
@@ -134,11 +134,11 @@ public class FavoriteMovies extends Fragment implements LoaderManager.LoaderCall
                 // do what ever you want here
                 MovieList movieList=new MovieList(movieID,movieTitle,moviePosterURL,movieSynopsis,movieRating,movieReleaseDate,movieOriginalTitle,movieTrailer);
                 movieListsMain.add(movieList);
-
+                movieAdapterMain=new MovieAdapter(movieListsMain,getContext());
+                movieRecycleViewMain.setAdapter(movieAdapterMain);
                 cursorData.moveToNext();
             }
-            movieAdapterMain=new MovieAdapter(movieListsMain,getContext());
-            movieRecycleViewMain.setAdapter(movieAdapterMain);
+
         }
         cursorData.close();
 
