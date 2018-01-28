@@ -19,17 +19,6 @@
                 android:id="@+id/movie_poster"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-            <ToggleButton
-                android:id="@+id/movie_toggle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textOn=""
-                android:textOff=""
-                android:button="@drawable/check"
-                android:background="@null"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                />
             <TextView
                 android:id="@+id/movieName"
                 android:layout_width="match_parent"
