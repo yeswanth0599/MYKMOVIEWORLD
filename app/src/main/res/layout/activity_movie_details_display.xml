@@ -52,13 +52,22 @@
                 android:textColor="#000000"
                 android:textSize="16dp"
                 android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/movie_constraint_rating"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#000000" />
-
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/movie_constraint_rating_lable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"
+                    android:text="Average Rating:" />
+                <TextView
+                    android:id="@+id/movie_constraint_rating"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000" />
+            </LinearLayout>
             <TextView
                 android:id="@+id/movie_constraint_release_date"
                 android:layout_width="wrap_content"
@@ -73,11 +82,6 @@
                 android:button="@drawable/check"
                 android:textOff=""
                 android:textOn="" />
-            <TextView
-                android:id="@+id/movie_constraint_cursor_Data"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#000000" />
         </LinearLayout>
 
         <android.support.v7.widget.CardView
@@ -99,10 +103,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Movie Synopsis:"
-                    android:textStyle="bold"
-                    android:textSize="16dp"
                     android:textColor="#000000"
-                    />
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/movie_constraint_synopsis"
@@ -141,9 +144,9 @@
 
             <ListView
                 android:id="@+id/movie_constraint_trailer"
-                android:layout_height="0dp"
                 android:layout_width="match_parent"
-                android:layout_weight="1"/>
+                android:layout_height="0dp"
+                android:layout_weight="1" />
         </LinearLayout>
     </android.support.constraint.ConstraintLayout>
 
